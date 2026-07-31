@@ -1,3 +1,6 @@
+import matplotlib.pyplot as plt
+plt.rc('font', family='AppleGothic')
+plt.rcParams['axes.unicode_minus'] = False
 """
 Gu, Kelly & Xiu (2020, RFS) "Empirical Asset Pricing via Machine Learning" 재현 파이프라인
 실행: python gkx_pipeline.py
@@ -98,7 +101,7 @@ models["OLS-3"] = ("subset", ols3, idx3)
 
 best = None
 for l1 in (0.1, 0.5, 0.9):
-    m = ElasticNetCV(l1_ratio=l1, cv=3, n_alphas=15, max_iter=5000, random_state=0).fit(Xtr, ytr)
+    m = ElasticNetCV(l1_ratio=l1, cv=3, alphas=15, max_iter=5000, random_state=0).fit(Xtr, ytr)
     mse = np.mean((yval - m.predict(Xval)) ** 2)
     if best is None or mse < best[0]:
         best = (mse, m)
